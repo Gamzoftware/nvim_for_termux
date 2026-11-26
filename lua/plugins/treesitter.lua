@@ -21,8 +21,9 @@ return {
                 pattern = {
                     "php",
                     "javascript",
+                    "javascriptreact",
                     "typescript",
-                    "tsx",
+                    "typescriptreact",
                     "sql",
                     "bash",
                     "sh",
