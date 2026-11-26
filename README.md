@@ -5,6 +5,7 @@ Neovim configuration for the Termux app
 - Bash
 - PHP
 - Python
+- Dart
 - JavaScript
 - SQL
 
@@ -28,7 +29,7 @@ git clone https://github.com/Gamzoftware/nvim_for_termux.git
 cd nvim_for_termux && ./install.sh
 ```
 
-4. Test Neovim.
+## Use Neovim:
 
 ✓ Open an example file.
 
