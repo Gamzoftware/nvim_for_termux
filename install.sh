@@ -4,7 +4,7 @@ set -euo pipefail
 #dependencies
 apt -y update
 apt install -y neovim git curl unzip ripgrep build-essential \
-    php composer shellcheck shfmt termux-api
+    php composer python shellcheck shfmt termux-api
 #npm install
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.41.0/install.sh | bash
 \. "$HOME/.nvm/nvm.sh"
