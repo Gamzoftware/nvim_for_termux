@@ -36,13 +36,24 @@ if [[ $has_local_bin_path != false ]]; then
 fi
 
 # 1. Inicializa plugins de nvim
-rm -rf "$HOME/.config/nvim"
+if [[ -d "$HOME/.config/nvim" ]]; then
+    rm -rf "$HOME/.config/nvim"
+fi
 ln -s "$WORKDIR" "$HOME/.config/nvim"
-nvim --headless "+Lazy! update" "+Lazy! sync" +qa
+nohup nvim --headless "+Lazy! install" "+Lazy! update" "+Lazy! sync" &
 
 # 2. Crea la carpeta exacta donde copilot.lua busca el módulo
+echo -e "\033[0;32mdownloading copilot lsp..."
 copilot_lsp_dir="$HOME/.local/share/nvim/copilot.lua/lsp"
+while [[ ! -d "$copilot_lsp_dir" ]]; do
+    sleep 5
+done
+
 copilot_lsp_version=$(ls "$copilot_lsp_dir" | awk -F' ' '{print $NF}' | tail -n 1)
+while [[ $(ls "$copilot_lsp_dir/$copilot_lsp_version/js" | wc -l) == 0 ]]; do
+    sleep 5
+done
+
 copilot_compiled_hash=$(ls "$copilot_lsp_dir/$copilot_lsp_version/js" | awk -F' ' '{print $NF}' | tail -n 1)
 copilot_compiled_arm64_dir="$copilot_lsp_dir/$copilot_lsp_version/js/$copilot_compiled_hash/compiled/android/arm64/"
 mkdir -p "$copilot_compiled_arm64_dir"
@@ -58,5 +69,7 @@ cp package/watcher.node "$copilot_compiled_arm64_dir/watcher.node"
 # 5. Limpia los archivos temporales
 rm -rf "$HOME/tmp-watcher" && cd "$WORKDIR" || exit 1
 
-# 6. Abre nvim
-nvim .
+# 6. Ejecuta nvim
+nvim -c "sleep 5" -c "Copilot auth" .
+
+exit 0
