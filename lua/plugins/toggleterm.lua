@@ -4,7 +4,7 @@ return {
     config = function()
         require("toggleterm").setup({
             direction = "horizontal",
-            size = 15,
+            size = 10,
         })
 
         vim.keymap.set(
