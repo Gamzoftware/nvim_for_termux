@@ -19,6 +19,10 @@ Neovim configuration for the Termux app
 
 2. Clone or download this project.
 
+[Descargar ultima version: ![GitHub Release](https://img.shields.io/github/v/release/gamzoftware/nvim_for_termux?style=for-the-badge&label=stable&labelColor=gray&color=green)](https://github.com/Gamzoftware/nvim_for_termux/archive/refs/heads/stable.zip)
+[Notas de la version](https://github.com/Gamzoftware/nvim_for_termux/releases/latest/)
+
+
 ```bash
 git clone https://github.com/Gamzoftware/nvim_for_termux.git
 ```
