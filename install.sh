@@ -25,13 +25,13 @@ if [[ ! -f $HOME/.bashrc ]]; then
 fi
 has_local_bin_path=$(cat "$HOME/.bashrc" | while read line; do
     if [[ $line == *"export PATH="* ]]; then
-        if [[ $line == *":/\$HOME/.local/bin"* ]]; then
+        if [[ $line == *":\$HOME/.local/bin"* ]]; then
             echo true
             break
         fi
     fi
 done)
-if [[ $has_local_bin_path != false ]]; then
+if [[ $has_local_bin_path != true ]]; then
     echo "export PATH=\"\$PATH:\$HOME/.local/bin\"" >>"$HOME/.bashrc"
 fi
 
