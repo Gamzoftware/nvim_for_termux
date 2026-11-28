@@ -43,12 +43,13 @@ ln -s "$WORKDIR" "$HOME/.config/nvim"
 
 old_nvim_pid=$(pgrep nvim || true)
 if [[ -n "$old_nvim_pid" ]]; then
-    kill -9 $old_nvim_pid || true
+    trap 'kill -9 $old_nvim_pid || true' EXIT
 fi
 
 echo -e "\033[0;32mdownloading copilot lsp..."
 nohup nvim --headless "+Lazy! install" "+Lazy! update" "+Lazy! sync" &
 nvim_install_pid=$!
+sleep 5
 
 # 2. Crea la carpeta exacta donde copilot.lua busca el módulo
 copilot_lsp_dir="$HOME/.local/share/nvim/copilot.lua/lsp"
@@ -75,8 +76,9 @@ cp package/watcher.node "$copilot_compiled_arm64_dir/watcher.node"
 
 # 5. Limpia los archivos temporales
 rm -rf "$HOME/tmp-watcher" && cd "$WORKDIR" || exit 1
-kill -9 $nvim_install_pid || true
+trap 'kill -9 $nvim_install_pid || true' EXIT
 
 # 6. Ejecuta nvim
-nvim -c "sleep 5" -c "Copilot auth" .
+nvim -c "sleep 5" -c "Copilot auth" -c "TSUpdate" .
+echo -e "\033[0;32mInstallation completed!"
 exit 0
